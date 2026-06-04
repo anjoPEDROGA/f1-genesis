@@ -4,6 +4,7 @@ import BackgroundGlow from "../components/background/BackgroundGlow"
 import Header from "../components/navigation/Header"
 import Sidebar from "../components/navigation/Sidebar"
 import FloatingCountdown from "../components/telemetry/FloatingCountdown"
+import UpdateBanner from "../components/updates/UpdateBanner"
 
 type Props = {
   children: React.ReactNode
@@ -28,6 +29,7 @@ export default function MainLayout({
 
       <Sidebar />
       <FloatingCountdown />
+      <UpdateBanner />
 
       {/* Margem à esquerda para não sobrepor a Sidebar de 260px */}
       <div className="ml-[260px] relative layer-ui min-h-screen flex flex-col">
