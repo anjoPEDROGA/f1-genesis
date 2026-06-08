@@ -22,6 +22,36 @@ function getNextUpcomingSession(race: Race) {
     .sort((a, b) => a.targetDate.getTime() - b.targetDate.getTime())[0];
 }
 
+function mergeRaceSessions(baseRace: Race, storedRace?: Race): Race {
+  if (!storedRace) return baseRace;
+
+  const storedSessions = new Map(storedRace.sessions.map((session) => [session.type, session]));
+
+  return {
+    ...baseRace,
+    ...storedRace,
+    sessions: baseRace.sessions.map((baseSession) => {
+      const storedSession = storedSessions.get(baseSession.type);
+      return storedSession
+        ? {
+            ...baseSession,
+            ...storedSession,
+            type: baseSession.type,
+            label: baseSession.label,
+            date: baseSession.date,
+            time: baseSession.time,
+          }
+        : baseSession;
+    }),
+  };
+}
+
+function mergeRaces(baseRaces: Race[], storedRaces?: Race[]) {
+  const storedById = new Map((storedRaces ?? []).map((race) => [race.id, race]));
+
+  return baseRaces.map((baseRace) => mergeRaceSessions(baseRace, storedById.get(baseRace.id)));
+}
+
 type RaceStore = {
   races: Race[];
   currentRound: number;
@@ -83,6 +113,16 @@ export const useRaceStore = create<RaceStore>()(
           currentRound: 1,
         }),
     }),
-    { name: "f1-manager-races" }
+    {
+      name: "f1-manager-races",
+      merge: (persistedState, currentState) => {
+        const stored = persistedState as Partial<RaceStore> | undefined;
+        return {
+          ...currentState,
+          ...stored,
+          races: mergeRaces(initialRaces, stored?.races),
+        };
+      },
+    }
   )
 );

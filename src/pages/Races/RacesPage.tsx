@@ -5,7 +5,7 @@ import { useStandingsStore } from "../../store/useStandingsStore";
 import SectionTitle from "../../components/ui/SectionTitle";
 import GlassPanel from "../../components/ui/GlassPanel";
 import SessionEditor from "../../components/race/SessionEditor";
-import type { Session } from "../../types/Race";
+import type { Session, SessionResult } from "../../types/Race";
 
 export default function RacesPage() {
   const navigate = useNavigate();
@@ -28,10 +28,9 @@ export default function RacesPage() {
     el?.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [selectedRaceId]);
 
-  const handleSave = (grid: any[], dnf: any[]) => {
+  const handleSave = (results: SessionResult[]) => {
     if (editor.raceId && editor.session) {
-      const allResults = [...grid, ...dnf];
-      updateSession(editor.raceId, editor.session.type, allResults);
+      updateSession(editor.raceId, editor.session.type, results);
       const updatedRaces = useRaceStore.getState().races;
       recalculateAll(updatedRaces);
       setEditor({ isOpen: false, raceId: null, session: null });
@@ -47,7 +46,7 @@ export default function RacesPage() {
       <div className="grid gap-6">
         {races.map((race) => {
           const isNext = race.id === nextRace?.id;
-          const isCompleted = !isNext && race.date < today;
+          const isCompleted = race.sessions.some((session) => session.type === "corrida" && session.completed) || race.date < today;
           const isSelected = selectedRaceId === race.id;
           const isCancelled = race.cancelled === true;
 
@@ -97,7 +96,7 @@ export default function RacesPage() {
                 </div>
 
                 <div className="flex flex-col items-end shrink-0 gap-3">
-                  <div className={`px-4 py-1 rounded-full text-[10px] font-bold uppercase ${isCancelled ? "bg-red-500/20 text-red-400" : isCompleted ? "bg-green-500/20 text-green-500" : isNext ? "bg-primary text-white" : "bg-white/5"}`}>
+                  <div className={`px-4 py-1 rounded-full text-[10px] font-bold uppercase ${isCancelled ? "bg-red-500/20 text-red-400" : isCompleted ? "bg-green-500/20 text-green-500" : isNext ? "bg-primary text-white" : "bg-white/5 text-muted"}`}>
                     {isCancelled ? "Canceled" : isCompleted ? "Finished" : isNext ? "Next Up" : "Upcoming"}
                   </div>
                   <button
@@ -127,8 +126,8 @@ export default function RacesPage() {
                     <span className="text-[10px] text-muted uppercase font-bold tracking-wider mb-1 group-hover:text-white">
                       {session.label}
                     </span>
-                    <span className={`text-[9px] font-bold ${session.completed ? "text-green-500" : "text-primary"}`}>
-                      {session.completed ? "EDITAR" : "PREENCHER"}
+                    <span className={`text-[9px] font-bold ${session.completed ? "text-green-500" : isCompleted ? "text-green-500" : isNext ? "text-primary" : "text-muted"}`}>
+                      {session.completed ? "EDITAR" : isCompleted ? "CONCLUÍDO" : "PREENCHER"}
                     </span>
                   </button>
                 ))}

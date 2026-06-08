@@ -32,11 +32,11 @@ export const races: Race[] = [
     { type: "quali", label: "Qualificação", date: "2026-05-02", time: "17:00", completed: false, results: [] },
     { type: "corrida", label: "Corrida", date: "2026-05-03", time: "17:00", completed: false, results: [] }
   ]},
-  { id: "r7", round: 7, name: "GP do Canadá", circuit: "Montreal", country: "Canadá", date: "2026-05-24", circuitImage: `${BASE_URL}/circuits/r5.png`, flag: `${BASE_URL}/flags/canada.png`, inauguration: "1978", firstGP: "1978", mostWins: "Schumacher & Hamilton (7)", totalGPs: 50, sessions: [
+    { id: "r7", round: 7, name: "GP do Canadá", circuit: "Montreal", country: "Canadá", date: "2026-05-24", circuitImage: `${BASE_URL}/circuits/r5.png`, flag: `${BASE_URL}/flags/canada.png`, inauguration: "1978", firstGP: "1978", mostWins: "Schumacher & Hamilton (7)", totalGPs: 50, sessions: [
     { type: "treino1", label: "Treino Livre 1", date: "2026-05-22", time: "13:30", completed: false, results: [] },
-    { type: "treino2", label: "Treino Livre 2", date: "2026-05-22", time: "17:30", completed: false, results: [] },
-    { type: "treino3", label: "Treino Livre 3", date: "2026-05-23", time: "13:00", completed: false, results: [] },
-    { type: "quali", label: "Qualificação", date: "2026-05-23", time: "17:00", completed: false, results: [] },
+    { type: "quali_sprint", label: "Quali Sprint", date: "2026-05-23", time: "17:30", completed: false, results: [] },
+    { type: "sprint", label: "Sprint", date: "2026-05-24", time: "13:00", completed: false, results: [] },
+    { type: "quali", label: "Qualificação", date: "2026-05-24", time: "17:00", completed: false, results: [] },
     { type: "corrida", label: "Corrida", date: "2026-05-24", time: "17:00", completed: false, results: [] }
   ]},
   { id: "r8", round: 8, name: "GP de Mônaco", circuit: "Monte Carlo", country: "Mônaco", date: "2026-06-07", circuitImage: `${BASE_URL}/circuits/r6.png`, flag: `${BASE_URL}/flags/monaco.png`, inauguration: "1929", firstGP: "1950", mostWins: "Ayrton Senna (6)", totalGPs: 70, sessions: [

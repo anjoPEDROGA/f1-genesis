@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Download, Upload } from "lucide-react";
 import { motion } from "framer-motion";
+import GenesisLogo from "../branding/GenesisLogo";
 
 const links = [
   { label: "Visão Geral", path: "/" },
@@ -15,6 +16,9 @@ const links = [
 export default function Sidebar() {
   const location = useLocation();
 
+  const today = new Date();
+  const backupDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+
   const handleExport = () => {
     const data = {
       standings: localStorage.getItem("f1-manager-standings"),
@@ -24,7 +28,7 @@ export default function Sidebar() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "f1-manager-save-2026.json";
+    a.download = `f1-manager-save-${backupDate}.json`;
     a.click();
   };
 
@@ -48,20 +52,13 @@ export default function Sidebar() {
   return (
     <aside className="fixed left-0 top-0 h-screen w-[260px] border-r border-white/10 bg-black/40 backdrop-blur-2xl z-40 p-6 flex flex-col justify-between overflow-y-auto custom-scrollbar">
       <div>
-        <div>
-          <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ type: "spring", stiffness: 120, damping: 18 }}
-            className="flex items-center gap-3"
-          >
-            <img src="/f1-genesis-logo.svg" alt="F1 Genesis" className="h-12 w-12 object-contain" />
-            <div>
-              <h1 className="text-3xl font-black tracking-tight font-display">Genesis</h1>
-              <p className="text-xs uppercase tracking-[0.4em] text-muted mt-2 font-display">F1 Manager</p>
-            </div>
-          </motion.div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 10, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ type: "spring", stiffness: 120, damping: 18 }}
+        >
+          <GenesisLogo variant="sidebar" className="w-full max-w-[230px]" />
+        </motion.div>
 
         <nav className="mt-12 flex flex-col gap-3">
           {links.map((link) => (
