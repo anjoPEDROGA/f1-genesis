@@ -7,6 +7,7 @@ type GenesisLogoProps = {
 
 export default function GenesisLogo({ variant = "sidebar", className = "" }: GenesisLogoProps) {
   const isSplash = variant === "splash";
+  const isSidebar = variant === "sidebar";
 
   return (
     <motion.div
@@ -15,14 +16,14 @@ export default function GenesisLogo({ variant = "sidebar", className = "" }: Gen
       transition={{ type: "spring", stiffness: 120, damping: 16 }}
       className={`relative ${className}`}
     >
-      <div className={`relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-black/50 shadow-[0_20px_70px_rgba(0,0,0,0.45)] ${isSplash ? "p-5" : "p-4"}`}>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,90,31,0.22),transparent_42%),linear-gradient(135deg,rgba(255,255,255,0.06),transparent_35%)]" />
-        <div className={`relative flex items-center ${isSplash ? "gap-5" : "gap-4"}`}>
+      <div className={`relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-black/50 shadow-[0_20px_70px_rgba(0,0,0,0.45)] ${isSplash ? "p-5" : "p-3.5"}`}>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,90,31,0.18),transparent_46%),linear-gradient(135deg,rgba(255,255,255,0.06),transparent_35%)]" />
+        <div className={`relative flex items-center ${isSplash ? "gap-5" : "gap-3.5"} ${isSidebar ? "flex-nowrap" : ""}`}>
           <motion.div
             initial={{ scale: 0.7, rotate: -8, opacity: 0 }}
             animate={{ scale: 1, rotate: 0, opacity: 1 }}
             transition={{ type: "spring", stiffness: 180, damping: 14, delay: 0.05 }}
-            className={`relative shrink-0 ${isSplash ? "h-16 w-16" : "h-12 w-12"}`}
+            className={`relative shrink-0 ${isSplash ? "h-16 w-16" : "h-11 w-11"}`}
           >
             <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[#ffb347] via-[#ff5a1f] to-[#e10600] blur-md opacity-30" />
             <img
@@ -37,7 +38,7 @@ export default function GenesisLogo({ variant = "sidebar", className = "" }: Gen
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.12, duration: 0.45 }}
-              className={`font-black uppercase leading-none ${isSplash ? "text-4xl md:text-6xl tracking-[-0.08em] font-display" : "text-[2rem] tracking-[-0.08em] font-display"}`}
+              className={`font-black uppercase leading-none whitespace-nowrap ${isSplash ? "text-4xl md:text-6xl tracking-[-0.08em] font-display" : "text-[1.65rem] tracking-[-0.07em] font-display"}`}
             >
               Genesis
             </motion.h1>
@@ -45,7 +46,7 @@ export default function GenesisLogo({ variant = "sidebar", className = "" }: Gen
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.28, duration: 0.35 }}
-              className={`uppercase text-muted ${isSplash ? "mt-4 text-xs md:text-sm tracking-[0.45em]" : "mt-2 text-[10px] tracking-[0.35em]"}`}
+              className={`uppercase text-muted whitespace-nowrap ${isSplash ? "mt-4 text-xs md:text-sm tracking-[0.45em]" : "mt-2 text-[10px] tracking-[0.32em]"}`}
             >
               F1 Manager
             </motion.p>

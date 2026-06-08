@@ -1,62 +1,28 @@
-import { createHashRouter } from "react-router-dom"
+import { createHashRouter } from "react-router-dom";
+import { lazy } from "react";
 
-import MainLayout from "./layouts/MainLayout"
-import HomePage from "./pages/Home/HomePage"
-import CalendarPage from "./pages/Calendar/CalendarPage"
-import StandingsPage from "./pages/Standings/StandingsPage"
-import DriversPage from "./pages/Drivers/DriversPage"
-import RacesPage from "./pages/Races/RacesPage"
-import DriverProfilePage from "./pages/Drivers/DriverProfilePage"
-import PrincipalsPage from "./pages/Principals/PrincipalsPage"
-import PrincipalProfilePage from "./pages/Principals/PrincipalProfilePage"
+import MainLayout from "./layouts/MainLayout";
 
-// Importações das páginas de Equipes (A lista e o perfil individual)
-import TeamsPage from "./pages/Teams/TeamsPage" 
-import TeamProfilePage from "./pages/Teams/TeamProfilePage" 
+const HomePage = lazy(() => import("./pages/Home/HomePage"));
+const CalendarPage = lazy(() => import("./pages/Calendar/CalendarPage"));
+const StandingsPage = lazy(() => import("./pages/Standings/StandingsPage"));
+const DriversPage = lazy(() => import("./pages/Drivers/DriversPage"));
+const RacesPage = lazy(() => import("./pages/Races/RacesPage"));
+const DriverProfilePage = lazy(() => import("./pages/Drivers/DriverProfilePage"));
+const PrincipalsPage = lazy(() => import("./pages/Principals/PrincipalsPage"));
+const PrincipalProfilePage = lazy(() => import("./pages/Principals/PrincipalProfilePage"));
+const TeamsPage = lazy(() => import("./pages/Teams/TeamsPage"));
+const TeamProfilePage = lazy(() => import("./pages/Teams/TeamProfilePage"));
 
 export const router = createHashRouter([
-  {
-    path: "/",
-    element: <MainLayout><HomePage /></MainLayout>,
-  },
-  {
-    path: "/calendar",
-    element: <MainLayout><CalendarPage /></MainLayout>,
-  },
-  {
-    path: "/standings",
-    element: <MainLayout><StandingsPage /></MainLayout>,
-  },
-  {
-    path: "/drivers",
-    element: <MainLayout><DriversPage /></MainLayout>,
-  },
-  {
-    path: "/drivers/:id",
-    element: <MainLayout><DriverProfilePage /></MainLayout>,
-  },
-  {
-    path: "/races",
-    element: <MainLayout><RacesPage /></MainLayout>,
-  },
-  {
-    path: "/principals",
-    element: <MainLayout><PrincipalsPage /></MainLayout>,
-  },
-  {
-    path: "/principals/:id",
-    element: <MainLayout><PrincipalProfilePage /></MainLayout>,
-  },
-  
-  // A rota que mostra a grade com todas as 10 equipes
-  {
-    path: "/teams",
-    element: <MainLayout><TeamsPage /></MainLayout>, 
-  },
-  
-  // A rota que mostra os detalhes de uma equipe específica
-  {
-    path: "/teams/:id",
-    element: <MainLayout><TeamProfilePage /></MainLayout>, 
-  },
-])
+  { path: "/", element: <MainLayout><HomePage /></MainLayout> },
+  { path: "/calendar", element: <MainLayout><CalendarPage /></MainLayout> },
+  { path: "/standings", element: <MainLayout><StandingsPage /></MainLayout> },
+  { path: "/drivers", element: <MainLayout><DriversPage /></MainLayout> },
+  { path: "/drivers/:id", element: <MainLayout><DriverProfilePage /></MainLayout> },
+  { path: "/races", element: <MainLayout><RacesPage /></MainLayout> },
+  { path: "/principals", element: <MainLayout><PrincipalsPage /></MainLayout> },
+  { path: "/principals/:id", element: <MainLayout><PrincipalProfilePage /></MainLayout> },
+  { path: "/teams", element: <MainLayout><TeamsPage /></MainLayout> },
+  { path: "/teams/:id", element: <MainLayout><TeamProfilePage /></MainLayout> },
+]);
